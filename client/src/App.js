@@ -5,11 +5,9 @@ function App() {
   // Get Flask server URL (port 5001)
   const getFlaskUrl = () => {
     const hostname = window.location.hostname;
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      return 'http://localhost:5001';
-    }
-    // If accessing from phone, use the same hostname
-    return `http://${hostname}:5001`;
+    const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+    // Use the same hostname for both localhost and network devices
+    return `${protocol}//${hostname}:5001`;
   };
 
   const flaskUrl = getFlaskUrl();

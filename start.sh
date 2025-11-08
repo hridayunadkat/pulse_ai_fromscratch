@@ -17,9 +17,9 @@ fi
 echo "📱 Your laptop IP address: $IP"
 echo ""
 echo "To access from your phone, open Safari and go to:"
-echo "   http://$IP:3000"
+echo "   http://$IP:5001"
 echo ""
-echo "Press Ctrl+C to stop the servers"
+echo "Press Ctrl+C to stop the server"
 echo ""
 
 # Start both client and server

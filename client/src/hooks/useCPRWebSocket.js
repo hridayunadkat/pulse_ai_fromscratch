@@ -7,10 +7,7 @@ const getWebSocketUrl = () => {
   }
   const hostname = window.location.hostname;
   const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-  if (hostname === 'localhost' || hostname === '127.0.0.1') {
-    return `${protocol}//localhost:8000/ws/cpr`;
-  }
-  // If accessing from phone, use the same hostname
+  // Use the same hostname for both localhost and network devices
   return `${protocol}//${hostname}:8000/ws/cpr`;
 };
 

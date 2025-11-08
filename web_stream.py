@@ -71,10 +71,10 @@ HTML_TEMPLATE = """
             transform: translateX(-50%);
         }
         video {
-            transform: scaleX(-1); /* Mirror the video */
+            /* Video not mirrored */
         }
         canvas {
-            transform: translateX(-50%) scaleX(-1); /* Mirror the canvas too */
+            transform: translateX(-50%); /* Canvas not mirrored */
         }
         .error {
             color: #ff4444;
@@ -198,7 +198,7 @@ def generate_frames():
         
         # Process frame with MediaPipe hand detection
         try:
-            processed_frame, _ = cpr_assistant.process_frame(frame)
+            processed_frame, _, _ = cpr_assistant.process_frame(frame)
         except Exception as e:
             print(f"Error processing frame: {e}")
             processed_frame = frame  # Use original frame if processing fails

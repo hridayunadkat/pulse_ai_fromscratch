@@ -24,18 +24,18 @@ import mediapipe as mp
 class CPRAssistant:
     def __init__(self):
         # Initialize MediaPipe
-        # self.mp_pose = mp.solutions.pose
+        self.mp_pose = mp.solutions.pose
         self.mp_hands = mp.solutions.hands
         self.mp_drawing = mp.solutions.drawing_utils
         
         # Initialize pose and hands
-        # self.pose = self.mp_pose.Pose(
-        #     static_image_mode=False,
-        #     model_complexity=1,
-        #     enable_segmentation=False,
-        #     min_detection_confidence=0.5,
-        #     min_tracking_confidence=0.5
-        # )
+        self.pose = self.mp_pose.Pose(
+            static_image_mode=False,
+            model_complexity=1,
+            enable_segmentation=False,
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5
+        )
         
         self.hands = self.mp_hands.Hands(
             static_image_mode=False,
@@ -244,14 +244,14 @@ class CPRAssistant:
         """Process a single frame for hand detection"""
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
-        # pose_results = self.pose.process(rgb_frame)
+        pose_results = self.pose.process(rgb_frame)
         hands_results = self.hands.process(rgb_frame)
         
         # Draw pose landmarks
-        # if pose_results.pose_landmarks:
-        #     self.mp_drawing.draw_landmarks(
-        #         frame, pose_results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS
-        #     )
+        if pose_results.pose_landmarks:
+            self.mp_drawing.draw_landmarks(
+                frame, pose_results.pose_landmarks, self.mp_pose.POSE_CONNECTIONS
+            )
         #     
         #     self.hand_placement_score = self.detect_hand_placement(pose_results.pose_landmarks)
         #     self.compression_depth = self.detect_compression_depth(pose_results.pose_landmarks)
@@ -284,7 +284,7 @@ class CPRAssistant:
                     frame, hand_landmarks, self.mp_hands.HAND_CONNECTIONS
                 )
         
-        return frame, hands_results
+        return frame, pose_results, hands_results
     
     # def add_visual_overlay(self, frame):
     #     """Add visual CPR feedback overlay"""
@@ -534,7 +534,7 @@ class CPRAssistant:
                 if not ret:
                     break
                 
-                processed_frame, hands_results = self.process_frame(frame)
+                processed_frame, pose_results, hands_results = self.process_frame(frame)
                 cv2.imshow('MediaPipe Hand Detection', processed_frame)
                 
                 key = cv2.waitKey(1) & 0xFF
