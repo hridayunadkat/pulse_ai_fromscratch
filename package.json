@@ -1,0 +1,14 @@
+{
+  "name": "phone-camera-app",
+  "version": "1.0.0",
+  "description": "React app to access phone camera from Safari",
+  "scripts": {
+    "dev": "python3 web_stream.py",
+    "flask": "python3 web_stream.py",
+    "start": "python3 web_stream.py"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
+
